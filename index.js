@@ -12,7 +12,7 @@ var v1 = function(hostname) {
 
 module.exports = {
 	local: function() {
-		var local = require('./lib/local-client')(arguments);
+		var local = require('./lib/local-client')(Array.prototype.slice.call(arguments));
 		return {
 			v1: function() { return new ApiV1(local); }
 		};

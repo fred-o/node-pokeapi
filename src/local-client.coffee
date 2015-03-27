@@ -11,7 +11,6 @@ module.exports = (objs) ->
 
     (uri) ->
         if resource = db[uri]
-            When resource
+            When entity: resource
         else
             When.reject status: code: 404
-    

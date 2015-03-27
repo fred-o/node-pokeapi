@@ -18,11 +18,11 @@ describe 'LocalClient', ->
     it 'accepts one or more data object and returns a fn', ->
         client = LocalClient pokemons, types
         client.should.be.a 'function'
-        client('/api/v1/type/1/').should.eventually.have.property 'name', 'Normal'
+        client('/api/v1/type/1/').should.eventually.eql entity: { resource_uri: '/api/v1/type/1/', name: 'Normal' }
 
     it 'is possible to query the local storage by resource_uri', ->
         client = LocalClient [ pokemons, types ]
-        client('/api/v1/type/1/').should.eventually.have.property 'name', 'Normal'
+        client('/api/v1/type/1/').should.eventually.eql entity: { resource_uri: '/api/v1/type/1/', name: 'Normal' }
 
     it 'yield status 404 when a resource could not be found', ->
         client = LocalClient [ pokemons, types ]
