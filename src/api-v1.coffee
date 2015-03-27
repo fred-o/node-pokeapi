@@ -20,6 +20,8 @@ module.exports = class Api
         else
             @cache[url] = @client(@host + url).then (res) ->
                 res.entity
+            , (err) ->
+                When.reject err.status
 
     get: (args...) =>
         if args.length is 2 and typeof args[0] is 'string' and typeof args[1] is 'number'

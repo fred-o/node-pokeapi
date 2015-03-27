@@ -55,5 +55,8 @@ describe 'ApiV1', ->
                 '/api/v1/pokemon/2/'
                 '/api/v1/pokemon/3/'
             ]
-
         
+        it 'returns the status object on failure', ->
+            client = -> When.reject status: { code: 404 }
+            api = new ApiV1 client, ''
+            api.get('pokemon', 1).should.eventually.be.rejectedWith { code: 404 }
