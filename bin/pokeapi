@@ -1,0 +1,21 @@
+#!/usr/bin/env node
+
+var program = require('commander');
+var pkg     = require('../package');
+var PokeApi = require('../index');
+var When    = require('when');
+
+program.version(pkg.version);
+
+program.command('get <resource type> <identifier(s)>')
+    .description('get one or more resources')
+    .action(function(resource, ids) {
+        PokeApi.v1().get(resource, ids).then(function(res) {
+			console.log(JSON.stringify(res));
+		}, function(err) {
+			console.error(err);
+		});
+    });
+
+program.parse(process.argv);
+    

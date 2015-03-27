@@ -1,10 +1,18 @@
-Api  = require '../lib/api'
+ApiV1  = require '../src/api-v1'
 When = require 'when'
 
-describe 'Api', ->
-    
+describe 'ApiV1', ->
+
+    describe 'constructor()', ->
+
+        it 'should should assume the default API host if none is given', ->
+            client = spy (url) -> When(entity:url)
+            api = new ApiV1 client
+            api.get('pokemon', 1).then ->
+                client.should.have.been.calledWith 'http://pokeapi.co/api/v1/pokemon/1/'
+
     describe '._expand()', ->
-        api = new Api undefined
+        api = new ApiV1 undefined, ''
 
         it 'returns a single id when there is only one', ->
             api._expand('1').should.eql [ 1 ]
@@ -21,8 +29,8 @@ describe 'Api', ->
     describe '.get()', ->
         client = api = undefined
         beforeEach ->
-            client = spy (url) -> When(entity:url)
-            api = new Api client
+            client = (url) -> When(entity:url)
+            api = new ApiV1 client, ''
         
         it 'accepts a resource type and single id', ->
             api.get('pokemon', 1).should.eventually.equal '/api/v1/pokemon/1/'

@@ -2,7 +2,7 @@ When = require 'when'
 
 module.exports = class Api
 
-    constructor: (@client) ->
+    constructor: (@client, @host='http://pokeapi.co') ->
         @cache = {}
 
     _expand: (ids) ->
@@ -18,7 +18,7 @@ module.exports = class Api
         if @cache[url]
             return @cache[url]
         else
-            @cache[url] = @client(url).then (res) ->
+            @cache[url] = @client(@host + url).then (res) ->
                 res.entity
 
     get: (args...) =>

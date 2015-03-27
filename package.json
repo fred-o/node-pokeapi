@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/fred-o/node-pokeapi",
   "dependencies": {
+    "commander": "^2.7.1",
     "rest": "^1.3.0",
     "when": "^3.7.2"
   },
