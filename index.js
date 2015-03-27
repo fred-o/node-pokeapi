@@ -3,11 +3,11 @@
 var ApiV1 = require('./lib/api-v1');
 
 module.exports = {
-	v1: function() {
+	v1: function(host) {
 		var rest = require('rest'),
 			mime = require('rest/interceptor/mime'),
 			errorCode = require('rest/interceptor/errorCode');
 		var client = rest.wrap(mime).wrap(errorCode);
-		return new ApiV1(client, 'http://pokeapi.co');
+		return new ApiV1(client, host);
 	}
 };
