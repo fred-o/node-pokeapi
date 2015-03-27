@@ -5,14 +5,14 @@ describe 'ApiV1', ->
 
     describe 'constructor()', ->
 
-        it 'should should assume the default API host if none is given', ->
+        it 'should should use the supplied hostname, if given', ->
             client = spy (url) -> When(entity:url)
-            api = new ApiV1 client
+            api = new ApiV1 client, 'http://pokeapi.co'
             api.get('pokemon', 1).then ->
                 client.should.have.been.calledWith 'http://pokeapi.co/api/v1/pokemon/1/'
 
     describe '._expand()', ->
-        api = new ApiV1 undefined, ''
+        api = new ApiV1 undefined
 
         it 'returns a single id when there is only one', ->
             api._expand('1').should.eql [ 1 ]
@@ -30,7 +30,7 @@ describe 'ApiV1', ->
         client = api = undefined
         beforeEach ->
             client = (url) -> When(entity:url)
-            api = new ApiV1 client, ''
+            api = new ApiV1 client
         
         it 'accepts a resource type and single id', ->
             api.get('pokemon', 1).should.eventually.equal '/api/v1/pokemon/1/'
@@ -58,5 +58,5 @@ describe 'ApiV1', ->
         
         it 'returns the status object on failure', ->
             client = -> When.reject status: { code: 404 }
-            api = new ApiV1 client, ''
+            api = new ApiV1 client
             api.get('pokemon', 1).should.eventually.be.rejectedWith { code: 404 }

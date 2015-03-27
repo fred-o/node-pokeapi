@@ -2,12 +2,27 @@
 
 var ApiV1 = require('./lib/api-v1');
 
+var v1 = function(hostname) {
+	var rest = require('rest'),
+		mime = require('rest/interceptor/mime'),
+		errorCode = require('rest/interceptor/errorCode');
+	var client = rest.wrap(mime).wrap(errorCode);
+	return new ApiV1(client, hostname);
+};
+
 module.exports = {
-	v1: function(host) {
-		var rest = require('rest'),
-			mime = require('rest/interceptor/mime'),
-			errorCode = require('rest/interceptor/errorCode');
-		var client = rest.wrap(mime).wrap(errorCode);
-		return new ApiV1(client, host);
+	local: function() {
+		var local = require('./lib/local-client')(arguments);
+		return {
+			v1: function() { return new ApiV1(local); }
+		};
+	},
+	host: function(hostname) {
+		return {
+			v1: function() { return v1(hostname); }
+		};
+	},
+	v1: function() {
+		return v1('http://pokeapi.co');
 	}
 };

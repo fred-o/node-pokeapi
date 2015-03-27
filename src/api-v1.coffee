@@ -2,7 +2,7 @@ When = require 'when'
 
 module.exports = class Api
 
-    constructor: (@client, @host='http://pokeapi.co') ->
+    constructor: (@client, @host='') ->
         @cache = {}
 
     _expand: (ids) ->
