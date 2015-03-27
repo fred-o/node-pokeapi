@@ -1,5 +1,5 @@
 {
-  "name": "node-pokeapi",
+  "name": "pokeapi",
   "version": "0.0.1",
   "description": "A simple client for pokeapi.co",
   "main": "index.js",
