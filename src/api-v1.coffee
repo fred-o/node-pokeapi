@@ -3,7 +3,6 @@ When = require 'when'
 module.exports = class Api
 
     constructor: (@client, @host='') ->
-        @cache = {}
 
     _expand: (ids) ->
         ret = []
@@ -15,13 +14,10 @@ module.exports = class Api
         return ret
 
     _get: (url) =>
-        if @cache[url]
-            return @cache[url]
-        else
-            @cache[url] = @client(@host + url).then (res) ->
-                res.entity
-            , (err) ->
-                When.reject err.status
+        @client(@host + url).then (res) ->
+            res.entity
+        , (err) ->
+            When.reject err.status
 
     get: (args...) =>
         if args.length is 2 and typeof args[0] is 'string' and typeof args[1] is 'number'
