@@ -15,6 +15,10 @@ describe 'PokeApi', ->
             api = PokeApi.host('http://myhost').v1()
             api.should.have.property 'host', 'http://myhost'
 
+        it 'should assume the http:// protocol if none is given', ->
+            api = PokeApi.host('myhost').v1()
+            api.should.have.property 'host', 'http://myhost'
+            
     describe '.local().v1()', ->
 
         it 'should return an instance of ApiV1 with a local connection', ->

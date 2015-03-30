@@ -18,6 +18,10 @@ module.exports = {
 		};
 	},
 	host: function(hostname) {
+		var parts = hostname.split('://');
+		if (parts.length == 1) {
+			hostname = 'http://' + hostname;
+		}
 		return {
 			v1: function() { return v1(hostname); }
 		};
