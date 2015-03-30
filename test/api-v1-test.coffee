@@ -31,6 +31,9 @@ describe 'ApiV1', ->
         beforeEach ->
             client = (url) -> When(entity:url)
             api = new ApiV1 client
+
+        it 'accepts a resource type', ->
+            api.get('pokemon').should.eventually.equal '/api/v1/pokemon/'
         
         it 'accepts a resource type and single id', ->
             api.get('pokemon', 1).should.eventually.equal '/api/v1/pokemon/1/'

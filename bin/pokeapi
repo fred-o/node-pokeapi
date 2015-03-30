@@ -8,10 +8,11 @@ var When    = require('when');
 
 program.version(pkg.version);
 
-program.command('get <resource> <identifiers>')
+program.command('get <resource> [identifiers]')
     .description("Get one or more resources.\n\n\t<resource> should be on of pokemon/type/move/ability/egg/description/sprite/game\n\t<identifiers> should be in the form '1,2,3-5'")
     .action(function(resource, ids) {
-        PokeApi.v1().get(resource, ids).then(function(res) {
+        var api = PokeApi.v1();
+        (ids ? api.get(resource, ids) : api.get(resource)).then(function(res) {
 			console.log(JSON.stringify(res));
 		}, function(err) {
 			console.error(err);
