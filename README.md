@@ -3,8 +3,9 @@ PokeApi
 
 ![Build Status](https://img.shields.io/travis/fred-o/node-pokeapi.svg)
 
-A light-weight promise-based client for accessing [pokeapi.co], usable
-from node.js or in the browser (through the magic of [browserify]).
+A light-weight [promise-based][whenjs] [REST] client for accessing
+[pokeapi.co], usable from node.js or in the browser (through the magic
+of [browserify]).
 
 ## Usage
 
@@ -110,3 +111,5 @@ own server instead of [pokeapi.co]:
 [pokeapi.co]:http://pokeapi.co
 [browserify]:http://browserify.org/
 [express]:http://expressjs.com
+[rest]:https://www.npmjs.com/package/rest
+[when.js]:https://www.npmjs.com/package/when
