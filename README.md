@@ -1,6 +1,8 @@
 PokeApi
 =======
 
+https://img.shields.io/travis/fred-o/node-pokeapi.svg
+
 A light-weight promise-based client for accessing [pokeapi.co], usable
 from node.js or in the browser (through the magic of [browserify]).
 
