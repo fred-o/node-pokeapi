@@ -2,8 +2,10 @@ PokeApi
 =======
 
 ![Build Status](https://img.shields.io/travis/fred-o/node-pokeapi.svg)
+![Version](https://img.shields.io/npm/v/pokeapi.svg)
+![Licens](https://img.shields.io/npm/l/pokeapi.svg)
 
-A light-weight [promise-based][whenjs] [REST] client for accessing
+A light-weight [promise-based][when.js] [REST][rest] client for accessing
 [pokeapi.co], usable from node.js or in the browser (through the magic
 of [browserify]).
 
