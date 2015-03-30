@@ -6,12 +6,23 @@ var pkg     = require('../package');
 var PokeApi = require('../index');
 var When    = require('when');
 
-program.version(pkg.version);
+program.version(pkg.version)
+    .option('-h, --host [host]', 'API host name')
+    .option('-v, --api-version [version]', 'API version', 1);
 
 program.command('get <resource> [identifiers]')
-    .description("Get one or more resources.\n\n\t<resource> should be on of pokemon/type/move/ability/egg/description/sprite/game\n\t<identifiers> should be in the form '1,2,3-5'")
+    .description("Get one or more resources.\n\n\t<resource> should be on of pokedex/pokemon/type/move/ability/egg/description/sprite/game\n\t<identifiers> should be in the form '1,2,3-5'")
     .action(function(resource, ids) {
-        var api = PokeApi.v1();
+        if (program.apiVersion != 1) {
+            console.log("Unsupported API version.");
+            process.exit(1);
+        }
+        var api = undefined;
+        if (program.host) {
+            api = PokeApi.host(program.host).v1();
+        } else {
+            api = PokeApi.v1();
+        }
         (ids ? api.get(resource, ids) : api.get(resource)).then(function(res) {
 			console.log(JSON.stringify(res));
 		}, function(err) {
@@ -23,4 +34,3 @@ program.parse(process.argv);
 if (!process.argv.slice(2).length) {
     program.outputHelp();
 }
-    
