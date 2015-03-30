@@ -28,7 +28,11 @@ module.exports = class Api
                 if typeof args[1] is 'number'
                     @_get "/api/v1/#{args[0]}/#{args[1]}/"
                 else if typeof args[1] is 'string'
-                    When.all(@get args[0], id for id in @_expand(args[1]))
+                    ids = @_expand(args[1])
+                    if ids.length is 1
+                        @get(args[0], ids[0])
+                    else
+                        When.all(@get args[0], id for id in ids)
         else if typeof args[0] is 'object' and args[0].resource_uri?
             @_get args[0].resource_uri
         else if Array.isArray(args[0])

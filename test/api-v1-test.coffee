@@ -37,6 +37,9 @@ describe 'ApiV1', ->
         
         it 'accepts a resource type and single id', ->
             api.get('pokemon', 1).should.eventually.equal '/api/v1/pokemon/1/'
+
+        it 'handles a single string id just as it would a numeric', ->
+            api.get('pokemon', '1').should.eventually.equal '/api/v1/pokemon/1/'
             
         it 'accepts a resource type and a range of ids', ->
             api.get('pokemon', '1-3').should.eventually.eql [
